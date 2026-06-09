@@ -1,0 +1,8 @@
+<svg width="100" height="100" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&display=swap');
+    .letra { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 148px; font-weight: 600; font-style: italic; fill: #4A3B2A; }
+  </style>
+  <rect width="200" height="200" fill="#EDE0C4"/>
+  <text x="100" y="158" text-anchor="middle" class="letra">S</text>
+</svg>
