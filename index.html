@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Mis 15 Años – Sofía</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Jost:wght@300;400;500&family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --beige:#F5EDD8;
+  --beige-mid:#EDE0C4;
+  --beige-dark:#D9C9A8;
+  --gold:#C9A96E;
+  --gold-light:#E2CA96;
+  --gold-pale:#F5EDD8;
+  --champagne:#F7F0E2;
+  --champagne-dark:#EDE0C4;
+  --white:#FFFFFF;
+  --text:#4A3B2A;
+  --text-muted:#8A7560;
+  --text-light:#B09A7E;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Jost',sans-serif;
+  background:var(--champagne);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+/* ── PARTÍCULAS ── */
+.particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+.particle{
+  position:absolute;opacity:0;
+  animation:floatUp linear infinite;
+}
+@keyframes floatUp{
+  0%{transform:translateY(100vh) rotate(0deg);opacity:0}
+  10%{opacity:.5}90%{opacity:.2}
+  100%{transform:translateY(-10vh) rotate(360deg);opacity:0}
+}
+
+/* ── CONFETI ── */
+.confetti-piece{
+  position:fixed;
+  pointer-events:none;z-index:9999;
+  border-radius:2px;
+}
+
+/* ── OVERLAY DE ENTRADA ── */
+#entry-screen{
+  position:fixed;inset:0;z-index:1000;
+  background:var(--champagne);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:2rem;padding:2rem;
+  transition:opacity .9s ease,visibility .9s ease;
+}
+#entry-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.entry-ornament{
+  font-family:'Cormorant Garamond',serif;
+  color:var(--text);
+  font-size:clamp(2.5rem,8vw,5rem);
+  font-weight:300;font-style:italic;
+  letter-spacing:.05em;text-align:center;line-height:1.1;
+}
+.entry-subtitle{
+  font-family:'Jost',sans-serif;
+  color:var(--text-muted);
+  font-size:.78rem;letter-spacing:.3em;
+  text-transform:uppercase;text-align:center;
+}
+.entry-divider{
+  width:120px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.entry-btns{display:flex;flex-direction:column;gap:.85rem;align-items:center;width:100%;max-width:320px;}
+.btn-entry{
+  font-family:'Jost',sans-serif;
+  font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;
+  padding:.95rem 2.4rem;
+  border:1px solid var(--gold);
+  background:transparent;color:var(--text);
+  cursor:pointer;transition:all .35s ease;position:relative;overflow:hidden;
+  width:100%;text-align:center;
+}
+.btn-entry::before{
+  content:'';position:absolute;inset:0;
+  background:var(--gold);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .35s ease;z-index:-1;
+}
+.btn-entry:hover::before{transform:scaleX(1)}
+.btn-entry:hover{color:var(--white)}
+.entry-phrase{
+  display:none;
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.1rem,3vw,1.6rem);
+  font-style:italic;color:var(--text-muted);
+  text-align:center;max-width:520px;line-height:1.7;
+  animation:fadeIn .9s ease both;
+}
+.entry-phrase.visible{display:block}
+
+/* ── NAV ── */
+header{
+  position:fixed;top:0;left:0;width:100%;z-index:100;
+  background:rgba(247,240,226,.93);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--beige-dark);
+}
+nav{
+  max-width:1100px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.8rem 2rem;
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-size:1.45rem;
+  color:var(--gold);letter-spacing:.05em;
+}
+.nav-links{display:flex;gap:1.8rem;list-style:none}
+.nav-links a{
+  font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--text-muted);text-decoration:none;transition:color .3s;
+  position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;
+  background:var(--gold);transition:width .3s;
+}
+.nav-links a:hover{color:var(--gold)}
+.nav-links a:hover::after{width:100%}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px}
+.nav-toggle span{display:block;width:22px;height:1px;background:var(--text-muted);transition:all .3s}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:8rem 2rem 4rem;
+  position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 30%,var(--beige-mid) 0%,var(--champagne) 100%);
+  z-index:0;
+}
+.hero-ring{
+  position:absolute;border-radius:50%;
+  border:1px solid var(--beige-dark);opacity:.6;
+  animation:pulseRing 6s ease-in-out infinite;
+}
+.hero-ring:nth-child(1){width:380px;height:380px;animation-delay:0s}
+.hero-ring:nth-child(2){width:580px;height:580px;animation-delay:-2s}
+.hero-ring:nth-child(3){width:780px;height:780px;animation-delay:-4s}
+@keyframes pulseRing{0%,100%{opacity:.3;transform:scale(1)}50%{opacity:.7;transform:scale(1.02)}}
+.hero-content{position:relative;z-index:1}
+.hero-tag{
+  display:inline-block;
+  font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);border:1px solid var(--beige-dark);
+  padding:.4rem 1.2rem;margin-bottom:1.5rem;
+  animation:fadeDown .8s ease both;
+}
+.hero-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(4rem,12vw,9rem);
+  font-weight:300;font-style:italic;
+  color:var(--text);line-height:.9;
+  animation:fadeDown .8s .2s ease both;
+}
+.hero-subtitle{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1rem,3vw,1.5rem);
+  color:var(--text-muted);font-weight:300;
+  margin:1rem 0 3rem;letter-spacing:.1em;
+  animation:fadeDown .8s .35s ease both;
+}
+.hero-btns{
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  animation:fadeDown .8s .5s ease both;
+}
+.btn-hero-primary{
+  font-family:'Jost',sans-serif;
+  font-size:.73rem;letter-spacing:.2em;text-transform:uppercase;
+  padding:1rem 2.4rem;
+  background:var(--gold);color:var(--white);
+  border:1px solid var(--gold);cursor:pointer;transition:all .3s;
+}
+.btn-hero-primary:hover{background:var(--gold-light);border-color:var(--gold-light);color:var(--text)}
+.btn-hero-secondary{
+  font-family:'Jost',sans-serif;
+  font-size:.73rem;letter-spacing:.2em;text-transform:uppercase;
+  padding:1rem 2.4rem;
+  background:transparent;color:var(--text);
+  border:1px solid var(--beige-dark);cursor:pointer;transition:all .3s;
+}
+.btn-hero-secondary:hover{border-color:var(--gold);color:var(--gold)}
+.hero-phrase{
+  display:none;
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.1rem,2.5vw,1.5rem);
+  font-style:italic;color:var(--text-muted);
+  max-width:500px;line-height:1.8;
+  animation:fadeIn .8s ease both;
+}
+.hero-phrase.visible{display:block}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ── SECCIÓN GENERAL ── */
+section{position:relative;z-index:1}
+.section-inner{max-width:1000px;margin:0 auto;padding:5rem 2rem}
+/* Elementos internos centrados en desktop */
+.section-centered{
+  display:flex;flex-direction:column;align-items:center;
+  width:100%;
+}
+.section-label{
+  font-size:.64rem;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--gold);display:block;margin-bottom:.8rem;
+}
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,5vw,3rem);
+  font-weight:300;color:var(--text);
+  line-height:1.1;margin-bottom:1.5rem;
+}
+.section-line{width:60px;height:1px;background:var(--gold);margin-bottom:2rem}
+.section-text{font-size:.93rem;line-height:1.85;color:var(--text-muted);max-width:540px}
+
+/* ── COUNTDOWN ── */
+#fecha{background:var(--beige-mid)}
+.countdown-inline{
+  margin-top:3rem;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  gap:0;
+  width:100%;
+}
+.countdown-unit{
+  text-align:center;
+  display:flex;flex-direction:column;align-items:center;
+}
+.countdown-number{
+  display:block;
+  font-family:'Noto Serif',serif;
+  font-size:clamp(3.2rem,8.5vw,5.8rem);font-weight:700;
+  color:var(--text);line-height:1;
+  letter-spacing:.02em;
+  font-variant-numeric:tabular-nums lining-nums;
+}
+.countdown-label{
+  font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);margin-top:.6rem;display:block;
+  font-family:'Jost',sans-serif;font-weight:400;
+}
+.countdown-sep{
+  font-family:'Noto Serif',serif;
+  font-size:clamp(2.8rem,7.5vw,5rem);font-weight:400;
+  color:var(--gold);line-height:1;
+  padding:0 .3rem;
+  opacity:.55;
+}
+
+/* ── HORA ── */
+#hora{background:var(--champagne)}
+.hora-card{
+  margin:2rem auto 0;
+  max-width:580px;width:100%;
+  text-align:center;
+}
+.hora-block{
+  padding:1rem 0;
+}
+.hora-block-label{
+  font-size:.52rem;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--text-light);font-family:'Jost',sans-serif;font-weight:500;
+  display:block;margin-bottom:.8rem;
+}
+.hora-time{
+  font-family:'Noto Serif',serif;
+  font-size:clamp(3rem,8vw,5rem);font-weight:700;color:var(--gold);line-height:1;
+  letter-spacing:.03em;
+  font-variant-numeric:tabular-nums lining-nums;
+}
+.hora-day{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.4rem,4vw,2rem);font-style:italic;
+  letter-spacing:.05em;color:var(--text);
+  line-height:1.4;
+}
+.hora-sep{
+  width:80px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  margin:1.5rem auto;
+}
+.hora-fin{font-size:.78rem;color:var(--text-light);letter-spacing:.15em;font-family:'Jost',sans-serif;display:block;margin-top:.5rem}
+
+/* ── LUGAR ── */
+#lugar{background:var(--beige)}
+.lugar-card{
+  margin-top:2rem;border:1px solid var(--beige-dark);
+  background:var(--white);overflow:hidden;
+  display:grid;grid-template-columns:1fr 1fr;
+}
+.lugar-info{padding:2.5rem}
+.lugar-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.75rem;font-weight:300;color:var(--text);margin-bottom:.3rem;
+}
+.lugar-sub{
+  font-size:.75rem;letter-spacing:.15em;color:var(--gold);
+  text-transform:uppercase;margin-bottom:1rem;display:block;
+}
+.lugar-address{
+  font-size:.88rem;color:var(--text-muted);
+  line-height:1.8;font-style:normal;margin-bottom:1.5rem;
+}
+.btn-map{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);border:1px solid var(--beige-dark);
+  padding:.6rem 1.4rem;text-decoration:none;
+  transition:all .3s;background:none;cursor:pointer;
+}
+.btn-map:hover{background:var(--gold);color:var(--white);border-color:var(--gold)}
+.lugar-map{background:var(--beige);min-height:260px;position:relative;overflow:hidden}
+.lugar-map iframe{width:100%;height:100%;border:none;filter:sepia(15%) saturate(80%)}
+
+/* ── DRESS CODE ── */
+#dresscode{background:var(--champagne-dark)}
+.dresscode-center{
+  margin-top:2.5rem;display:flex;flex-direction:column;
+  align-items:center;gap:2.5rem;text-align:center;
+}
+.dresscode-badge{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.5rem;font-style:italic;
+  color:var(--text);
+  letter-spacing:.03em;
+}
+.dresscode-badge span{color:var(--gold)}
+.dc-icons{display:flex;gap:5rem;align-items:center;justify-content:center;margin-top:.5rem}
+.dc-figure{display:flex;flex-direction:column;align-items:center;gap:.8rem}
+
+/* SVG siluetas lineales */
+.dc-svg{
+  height:180px;
+  width:auto;
+  animation:dcFloat 3s ease-in-out infinite;
+}
+.dc-svg.jacket{animation-delay:-1.5s;}
+.dc-icons{gap:4rem;}
+@keyframes dcFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+}
+
+/* ── FORMULARIO ASISTENCIA ── */
+#asistir{background:var(--beige)}
+.form-card{
+  background:var(--white);border:1px solid var(--beige-dark);
+  padding:2.5rem;margin:2rem auto 0;max-width:660px;
+  border-radius:16px;
+}
+.form-group{margin-bottom:1.6rem;position:relative}
+.form-group label{
+  display:flex;align-items:center;gap:.5rem;
+  font-size:.64rem;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--text-muted);margin-bottom:.75rem;font-weight:500;
+}
+.form-icon{font-size:1rem;opacity:.6}
+.form-group input,
+.form-group select,
+.form-group textarea{
+  width:100%;font-family:'Jost',sans-serif;font-size:.9rem;
+  padding:.9rem 1.2rem;
+  border:1.5px solid var(--beige-dark);
+  border-radius:12px;
+  background:var(--champagne);color:var(--text);
+  outline:none;transition:border-color .3s,background .3s,box-shadow .3s;
+  appearance:none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+  border-color:var(--gold);background:var(--white);
+  box-shadow:0 0 0 3px rgba(201,169,110,.12);
+}
+.form-group textarea{resize:vertical;min-height:90px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.field-animated{transition:all .4s ease}
+
+/* Botones de asistencia tipo pill */
+.attend-btns{display:flex;gap:.75rem;flex-wrap:wrap}
+.btn-attend{
+  flex:1;min-width:140px;
+  font-family:'Jost',sans-serif;
+  font-size:.82rem;letter-spacing:.08em;
+  padding:1rem 1.5rem;
+  border:1.5px solid var(--beige-dark);
+  border-radius:50px;
+  background:transparent;color:var(--text-muted);
+  cursor:pointer;transition:all .35s ease;
+  display:flex;align-items:center;justify-content:center;gap:.5rem;
+}
+.btn-attend:hover{border-color:var(--gold);color:var(--text)}
+.btn-attend.selected-yes{
+  background:var(--gold);color:var(--white);
+  border-color:var(--gold);
+  box-shadow:0 4px 20px rgba(201,169,110,.35);
+}
+.btn-attend.selected-no{
+  background:var(--beige-mid);color:var(--text);
+  border-color:var(--beige-dark);
+}
+
+/* Requerimientos alimentarios */
+#food-reqs{
+  max-height:0;overflow:hidden;
+  transition:max-height .6s ease,opacity .4s ease,margin .4s ease;
+  opacity:0;margin-bottom:0;
+}
+#food-reqs.visible{max-height:500px;opacity:1;margin-bottom:1.6rem}
+.food-title{
+  font-size:.64rem;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;font-weight:500;
+}
+
+/* Chips de restricciones alimentarias */
+.food-chips{
+  display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1rem;
+}
+.chip-label{
+  display:flex;align-items:center;gap:.45rem;
+  font-size:.82rem;color:var(--text-muted);cursor:pointer;
+  padding:.6rem 1.1rem;
+  border:1.5px solid var(--beige-dark);
+  border-radius:50px;background:var(--champagne);
+  transition:all .25s ease;user-select:none;
+}
+.chip-label:hover{border-color:var(--gold-light);color:var(--text)}
+.chip-label input[type="checkbox"]{display:none}
+.chip-label.checked{
+  background:var(--beige-mid);
+  border-color:var(--gold);
+  color:var(--text);
+}
+
+/* Campo de canción dentro del form */
+#song-field{
+  max-height:0;overflow:hidden;
+  transition:max-height .6s ease,opacity .4s ease,margin .4s ease;
+  opacity:0;margin-bottom:0;
+}
+#song-field.visible{max-height:200px;opacity:1;margin-bottom:1.6rem}
+.song-inner{
+  border:1.5px dashed var(--beige-dark);
+  border-radius:12px;
+  padding:1.2rem 1.4rem;
+  background:var(--champagne);
+}
+.song-field-title{
+  font-size:.64rem;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:.8rem;display:flex;align-items:center;gap:.4rem;font-weight:500;
+}
+
+.btn-submit{
+  font-family:'Jost',sans-serif;
+  font-size:.73rem;letter-spacing:.25em;text-transform:uppercase;
+  padding:1.1rem 2.5rem;
+  background:var(--gold);color:var(--white);
+  border:none;cursor:pointer;
+  transition:all .3s;width:100%;margin-top:.3rem;
+}
+.btn-submit:hover{background:var(--gold-light);color:var(--text)}
+.form-success{
+  display:none;text-align:center;padding:2.5rem 1rem;
+}
+.form-success.visible{display:block}
+.form-success-icon{font-size:2.2rem;color:var(--gold);display:block;margin-bottom:.8rem}
+.form-success-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.5rem;color:var(--text);font-style:italic;
+}
+.form-success-sub{margin-top:.5rem;font-size:.85rem;color:var(--text-muted)}
+
+/* ── REGALO ── */
+#regalo{background:var(--champagne)}
+.regalo-card{
+  border:1px solid var(--beige-dark);background:var(--white);
+  padding:2.2rem;margin:2rem auto 0;max-width:660px;
+  border-radius:12px;
+}
+.regalo-card-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.25rem;color:var(--gold);
+  margin-bottom:1.4rem;font-style:italic;
+}
+.regalo-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:.65rem 0;border-bottom:1px solid var(--beige);
+  font-size:.86rem;
+}
+.regalo-row:last-of-type{border-bottom:none}
+.regalo-key{color:var(--text-light);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;font-family:'Jost',sans-serif;}
+.regalo-val{color:var(--text);font-family:'Jost',sans-serif;font-size:.95rem;font-weight:400;}
+.regalo-copy-btns{display:flex;flex-direction:column;gap:.75rem;margin-top:1.5rem;}
+.btn-copy{
+  font-family:'Jost',sans-serif;
+  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+  padding:.85rem 1.8rem;
+  background:transparent;color:var(--gold);
+  border:1px solid var(--beige-dark);cursor:pointer;transition:all .3s;
+  width:100%;text-align:center;
+}
+.btn-copy:hover{background:var(--gold);color:var(--white);border-color:var(--gold)}
+.btn-copy.copied{background:var(--gold);color:var(--white);border-color:var(--gold)}
+.btn-ver-datos{
+  display:block;
+  font-family:'Jost',sans-serif;
+  font-size:.73rem;letter-spacing:.2em;text-transform:uppercase;
+  padding:1rem 2.5rem;
+  background:var(--gold);color:var(--white);
+  border:none;cursor:pointer;transition:all .3s;
+  margin-top:.5rem;
+}
+.btn-ver-datos:hover{background:var(--gold-light);color:var(--text)}
+.btn-ver-datos.hidden{display:none}
+
+/* ── TE ESPERO (cierre) ── */
+#te-espero{
+  background:var(--beige-mid);
+  text-align:center;
+}
+#te-espero .section-inner{
+  display:flex;flex-direction:column;
+  align-items:center;gap:1.5rem;
+  padding:6rem 2rem;
+}
+.te-espero-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3rem,8vw,6rem);
+  font-weight:300;font-style:italic;
+  color:var(--text);line-height:1;
+}
+.te-espero-name{color:var(--gold)}
+.te-espero-line{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.te-espero-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;font-style:italic;
+  color:var(--text-muted);line-height:1.9;max-width:480px;
+}
+.te-espero-ornament{font-size:1.4rem;color:var(--gold);letter-spacing:.5em}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--beige-dark);border-top:1px solid var(--beige-dark);
+  text-align:center;padding:1.8rem;
+}
+.footer-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.6rem;font-style:italic;color:var(--text-muted);
+}
+.footer-sub{
+  font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--text-light);margin-top:.3rem;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .nav-links{
+    display:none;flex-direction:column;
+    position:absolute;top:100%;left:0;width:100%;
+    background:var(--champagne);border-bottom:1px solid var(--beige-dark);
+    padding:1rem 2rem 1.5rem;gap:1.2rem;
+  }
+  .nav-links.open{display:flex}
+  .nav-toggle{display:flex}
+  .lugar-card{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .countdown-grid{grid-template-columns:repeat(2,1fr)}
+  .hora-card{padding:2rem}
+  .dc-icons{gap:2rem}
+}
+</style>
+</head>
+<body>
+
+<div class="particles" id="particles" aria-hidden="true"></div>
+
+<!-- ════════ PANTALLA DE ENTRADA ════════ -->
+<div id="entry-screen" role="dialog" aria-modal="true" aria-label="Bienvenida a la invitación de Sofía">
+  <p class="entry-subtitle">Estás invitado / a</p>
+  <div class="entry-ornament">Sofía<br/><span style="font-size:.52em;letter-spacing:.06em">Mis XV Años</span></div>
+  <div class="entry-divider"></div>
+  <p class="entry-subtitle" style="font-size:.72rem;opacity:.6">La música es parte de la experiencia</p>
+  <div class="entry-btns" id="entry-btns">
+    <button class="btn-entry" onclick="enterSite(true)">♪ Ingresar con música</button>
+    <button class="btn-entry" onclick="enterSite(false)">Ingresar sin música</button>
+  </div>
+  <p class="entry-phrase" id="entry-phrase">
+    "Hay momentos que no se guardan en fotos,<br/>se quedan para siempre en el corazón."
+  </p>
+</div>
+
+<!-- ════════ HEADER / NAV ════════ -->
+<header id="site-header">
+  <nav aria-label="Navegación principal">
+    <div class="nav-logo">Sofía</div>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#fecha">Fecha</a></li>
+      <li><a href="#hora">Hora</a></li>
+      <li><a href="#lugar">Lugar</a></li>
+      <li><a href="#dresscode">Dress Code</a></li>
+      <li><a href="#asistir">Asistir</a></li>
+      <li><a href="#regalo">Regalo</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<main>
+
+<!-- ════════ HERO ════════ -->
+<section id="hero" aria-labelledby="hero-title">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-ring" aria-hidden="true"></div>
+  <div class="hero-ring" aria-hidden="true"></div>
+  <div class="hero-ring" aria-hidden="true"></div>
+  <div class="hero-content">
+    <span class="hero-tag">✦ Bienvenidos a la invitación de ✦</span>
+    <h1 class="hero-name" id="hero-title">Sofía</h1>
+    <p class="hero-subtitle">Mis quince años · Una noche para siempre</p>
+    <div class="hero-btns" id="hero-btns">
+      <button class="btn-hero-primary" onclick="enterSite(true)">♪ Ingresar con música</button>
+      <button class="btn-hero-secondary" onclick="enterSite(false)">Ingresar sin música</button>
+    </div>
+    <p class="hero-phrase" id="hero-phrase">
+      "Hay momentos que no se guardan en fotos,<br/>se quedan para siempre en el corazón."
+    </p>
+  </div>
+</section>
+
+<!-- ════════ FECHA / COUNTDOWN ════════ -->
+<section id="fecha" aria-labelledby="fecha-title">
+  <div class="section-inner">
+    <span class="section-label">La fecha</span>
+    <h2 class="section-title" id="fecha-title">El gran día se acerca</h2>
+    <div class="section-line"></div>
+    <p class="section-text">Cada segundo que pasa es uno menos para que vivamos juntos esta noche mágica e irrepetible.</p>
+    <div class="countdown-inline" id="countdown" aria-live="polite">
+      <div class="countdown-unit">
+        <span class="countdown-number" id="cd-days">--</span>
+        <span class="countdown-label">Días</span>
+      </div>
+      <span class="countdown-sep">:</span>
+      <div class="countdown-unit">
+        <span class="countdown-number" id="cd-hours">--</span>
+        <span class="countdown-label">Horas</span>
+      </div>
+      <span class="countdown-sep">:</span>
+      <div class="countdown-unit">
+        <span class="countdown-number" id="cd-mins">--</span>
+        <span class="countdown-label">Minutos</span>
+      </div>
+      <span class="countdown-sep">:</span>
+      <div class="countdown-unit">
+        <span class="countdown-number" id="cd-secs">--</span>
+        <span class="countdown-label">Segundos</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ HORA ════════ -->
+<section id="hora" aria-labelledby="hora-title">
+  <div class="section-inner">
+    <span class="section-label">El horario</span>
+    <h2 class="section-title" id="hora-title">¿A qué hora nos vemos?</h2>
+    <div class="section-line"></div>
+    <div class="hora-card" style="text-align:center;max-width:580px;">
+      <div class="hora-block">
+        <p class="hora-day">Sábado · 31 de octubre de 2026</p>
+      </div>
+      <div class="hora-sep"></div>
+      <div class="hora-block">
+        <div class="hora-time">21:30</div>
+        <span class="hora-fin">Hasta las 5:00 hs</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ LUGAR ════════ -->
+<section id="lugar" aria-labelledby="lugar-title">
+  <div class="section-inner">
+    <span class="section-label">El lugar</span>
+    <h2 class="section-title" id="lugar-title">¿Dónde nos encontramos?</h2>
+    <div class="section-line"></div>
+    <div class="lugar-card">
+      <div class="lugar-info">
+        <p class="lugar-name">La Cayetana Eventos</p>
+        <span class="lugar-sub">Salón Martina</span>
+        <address class="lugar-address">
+          Río Negro 4000<br/>
+          Barrio Los Olmos<br/>
+          Córdoba, Argentina
+        </address>
+        <a href="https://maps.app.goo.gl/rf3Vk8vjMvrXWKnp6" target="_blank" rel="noopener" class="btn-map">
+          ↗ Cómo llegar
+        </a>
+      </div>
+      <div class="lugar-map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3405.7!2d-64.2189539!3d-31.4541033!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9432a343f0128009%3A0xab7f3422a7366786!2sLa%20Cayetana!5e0!3m2!1ses!2sar!4v1"
+          loading="lazy"
+          title="Ubicación de La Cayetana Eventos"
+          allowfullscreen
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ DRESS CODE ════════ -->
+<section id="dresscode" aria-labelledby="dresscode-title">
+  <div class="section-inner">
+    <span class="section-label">La vestimenta</span>
+    <h2 class="section-title" id="dresscode-title">Dress Code</h2>
+    <div class="section-line"></div>
+    <div class="dresscode-center">
+      <div class="dresscode-badge">
+        Elegante <span>Sport</span>
+      </div>
+      <div class="dc-icons" aria-label="Dress code: vestido y blazer">
+
+        <!-- VESTIDO DE NOCHE – largo, tirantes finos, líneas limpias -->
+        <div class="dc-figure">
+          <svg class="dc-svg dress" viewBox="0 0 100 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M36 4 L30 30" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+            <path d="M64 4 L70 30" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+            <path d="M30 30 L70 30" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+            <path d="M30 30 Q22 55 26 78 Q28 88 32 92" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+            <path d="M70 30 Q78 55 74 78 Q72 88 68 92" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+            <path d="M32 92 Q50 96 68 92" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M32 92 Q18 130 14 196" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+            <path d="M68 92 Q82 130 86 196" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+            <path d="M14 196 Q50 202 86 196" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
+            <path d="M18 148 Q50 153 82 148" stroke="#C9A96E" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+          </svg>
+        </div>
+
+        <!-- BLAZER SPORT – saco con solapa, botones, bolsillos -->
+        <div class="dc-figure">
+          <svg class="dc-svg jacket" viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M22 18 L8 40 L8 185 L50 185 L50 80" stroke="#C9A96E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M98 18 L112 40 L112 185 L70 185 L70 80" stroke="#C9A96E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M22 18 L44 28 L60 70 L50 80 L38 52 L8 40" stroke="#C9A96E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M98 18 L76 28 L60 70 L70 80 L82 52 L112 40" stroke="#C9A96E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M44 28 L60 50 L76 28" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="60" y1="80" x2="60" y2="185" stroke="#C9A96E" stroke-width="1" stroke-dasharray="5 4" opacity="0.45"/>
+            <circle cx="60" cy="108" r="3.5" stroke="#C9A96E" stroke-width="1.8"/>
+            <circle cx="60" cy="132" r="3.5" stroke="#C9A96E" stroke-width="1.8"/>
+            <path d="M16 144 L16 160 L40 160 L40 144" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M80 144 L80 160 L104 160 L104 144" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M82 70 L82 80 L96 80 L96 70" stroke="#C9A96E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.65"/>
+          </svg>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ════════ ASISTIR ════════ -->
+<section id="asistir" aria-labelledby="asistir-title">
+  <div class="section-inner">
+    <span class="section-label">Tu presencia</span>
+    <h2 class="section-title" id="asistir-title">Confirmar asistencia</h2>
+    <div class="section-line"></div>
+    <p class="section-text">Es muy importante para nosotros saber si vas a poder acompañarnos. ¡Te esperamos con los brazos abiertos! <br/><span style="font-family:'Cormorant Garamond',serif;font-style:italic;letter-spacing:.03em;">✦ Confirmar antes del 10 de octubre de 2026</span></p>
+
+    <div class="form-card" id="rsvp-form-wrapper">
+      <form id="rsvp-form" novalidate>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="r-nombre"><span class="form-icon">✦</span> Nombre</label>
+            <input type="text" id="r-nombre" name="nombre" placeholder="Tu nombre" required/>
+          </div>
+          <div class="form-group">
+            <label for="r-apellido"><span class="form-icon">✦</span> Apellido</label>
+            <input type="text" id="r-apellido" name="apellido" placeholder="Tu apellido" required/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>📅 ¿Vas a asistir?</label>
+          <input type="hidden" id="r-asistencia" name="asistencia" value=""/>
+          <div class="attend-btns">
+            <button type="button" class="btn-attend" id="btn-si" onclick="selectAttend('si')">
+              🎉 Sí, asistiré
+            </button>
+            <button type="button" class="btn-attend" id="btn-no" onclick="selectAttend('no')">
+              😢 No puedo asistir
+            </button>
+          </div>
+        </div>
+
+        <!-- REQUERIMIENTOS ALIMENTARIOS (solo si asiste) -->
+        <div id="food-reqs" aria-live="polite">
+          <p class="food-title"><span>🍽</span> Restricciones alimentarias</p>
+          <div class="food-chips">
+            <label class="chip-label" id="chip-celiaco">
+              <input type="checkbox" name="celiaco" onchange="toggleChip(this)"/> 🌾 Sin TACC
+            </label>
+            <label class="chip-label" id="chip-vegetariano">
+              <input type="checkbox" name="vegetariano" onchange="toggleChip(this)"/> 🥗 Vegetariano/a
+            </label>
+            <label class="chip-label" id="chip-vegano">
+              <input type="checkbox" name="vegano" onchange="toggleChip(this)"/> 🌱 Vegano/a
+            </label>
+            <label class="chip-label" id="chip-lactosa">
+              <input type="checkbox" name="lactosa" onchange="toggleChip(this)"/> 🥛 Sin lácteos
+            </label>
+            <label class="chip-label" id="chip-diabetico">
+              <input type="checkbox" name="diabetico" onchange="toggleChip(this)"/> 🩺 Diabético/a
+            </label>
+            <label class="chip-label" id="chip-alergia">
+              <input type="checkbox" name="alergia" onchange="toggleChip(this)"/> ✏️ Otra
+            </label>
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label for="r-extra"><span class="form-icon">📝</span> Detalles adicionales (opcional)</label>
+            <textarea id="r-extra" name="extra" placeholder="Contanos más sobre tus requerimientos..."></textarea>
+          </div>
+        </div>
+
+        <!-- CANCIÓN (solo si asiste) -->
+        <div id="song-field" aria-live="polite">
+          <div class="song-inner">
+            <p class="song-field-title"><span>🎵</span> ¿Qué canción no puede faltar?</p>
+            <div class="form-group" style="margin-bottom:0">
+              <label for="r-cancion"><span class="form-icon">♪</span> Artista – Canción</label>
+              <input type="text" id="r-cancion" name="cancion" placeholder="Ej: Bad Bunny – Tití Me Preguntó"/>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Confirmar asistencia ✦</button>
+      </form>
+
+      <div class="form-success" id="rsvp-success" role="status">
+        <span class="form-success-icon" aria-hidden="true">✦</span>
+        <p class="form-success-text" id="rsvp-success-text">¡Gracias! Tu confirmación fue registrada.</p>
+        <p class="form-success-sub" id="rsvp-success-sub">Sofía y su familia te esperan con muchísimo amor.</p>
+        <button onclick="resetForm()" style="
+          margin-top:1.8rem;
+          font-family:'Jost',sans-serif;
+          font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+          padding:.85rem 2rem;
+          background:transparent;color:var(--gold);
+          border:1px solid var(--beige-dark);cursor:pointer;
+          transition:all .3s;border-radius:50px;
+        " onmouseover="this.style.background='var(--gold)';this.style.color='#fff';this.style.borderColor='var(--gold)'"
+           onmouseout="this.style.background='transparent';this.style.color='var(--gold)';this.style.borderColor='var(--beige-dark)'">
+          ✦ Cargar otro invitado
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ REGALO ════════ -->
+<section id="regalo" aria-labelledby="regalo-title">
+  <div class="section-inner">
+    <span class="section-label">Un detalle especial</span>
+    <h2 class="section-title" id="regalo-title">¿Querés hacerme un regalo?</h2>
+    <div class="section-line"></div>
+    <p class="section-text">Tu presencia ya es el mejor regalo. Pero si querés sumarte con algo más, acá te dejamos los datos para hacerlo llegar.</p>
+    <div class="regalo-card">
+      <p class="regalo-card-title">Transferencia bancaria</p>
+      <div id="regalo-datos" style="display:none">
+        <div class="regalo-row"><span class="regalo-key">Nombre</span><span class="regalo-val">Sofía Respini</span></div>
+        <div class="regalo-row"><span class="regalo-key">Alias</span><span class="regalo-val" id="alias-val">sofia.respini</span></div>
+        <div class="regalo-row"><span class="regalo-key">CVU</span><span class="regalo-val" id="cvu-val">0000003100089321185287</span></div>
+        <div class="regalo-row"><span class="regalo-key">Banco</span><span class="regalo-val">Mercado Pago</span></div>
+        <div class="regalo-row"><span class="regalo-key">DNI</span><span class="regalo-val">51.275.888</span></div>
+        <div class="regalo-copy-btns">
+          <button class="btn-copy" onclick="copyAlias()" id="btn-alias">Copiar alias</button>
+          <button class="btn-copy" onclick="copyCVU()" id="btn-cvu">Copiar CVU</button>
+        </div>
+      </div>
+      <button class="btn-ver-datos" id="btn-ver-datos" onclick="toggleDatos()">Ver datos ✦</button>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ TE ESPERO ════════ -->
+<section id="te-espero" aria-labelledby="te-espero-title">
+  <div class="section-inner">
+    <div class="te-espero-ornament" aria-hidden="true">✦ ✦ ✦</div>
+    <h2 class="te-espero-title" id="te-espero-title">Te espero</h2>
+    <div class="te-espero-line"></div>
+    <p class="te-espero-text">
+      Hay noches que se graban en el alma para siempre.<br/>
+      Esta va a ser una de ellas.<br/>
+      Quiero vivirla con vos.
+    </p>
+    <div class="te-espero-ornament" style="font-size:1rem;letter-spacing:.8em;margin-top:.5rem" aria-hidden="true">✦ ✦ ✦</div>
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--text-light);margin-top:1rem;letter-spacing:.05em">
+      Sábado 31 de octubre de 2026 · 21:30 hs
+    </p>
+  </div>
+</section>
+
+</main>
+
+<!-- ════════ FOOTER ════════ -->
+<footer>
+  <p class="footer-name">Sofía</p>
+  <p class="footer-sub">Mis quince años · 31 de octubre de 2026</p>
+</footer>
+
+<!-- AUDIO: enlace a YouTube embed sin autoplay — se activa solo si elige "con música" -->
+<audio id="bg-music" loop preload="none">
+  <source src="con-musica.mp3" type="audio/mpeg"/>
+</audio>
+
+<script>
+/* ── PARTÍCULAS FLOTANTES ── */
+(function(){
+  var c=document.getElementById('particles');
+  var shapes=['◆','✦','·','✧','◇'];
+  for(var i=0;i<20;i++){
+    var p=document.createElement('div');
+    p.className='particle';
+    p.textContent=shapes[Math.floor(Math.random()*shapes.length)];
+    p.style.left=Math.random()*100+'%';
+    p.style.fontSize=(Math.random()*8+6)+'px';
+    p.style.color='#C9A96E';
+    p.style.animationDuration=(Math.random()*16+12)+'s';
+    p.style.animationDelay=(Math.random()*-25)+'s';
+    c.appendChild(p);
+  }
+})();
+
+/* ── CONFETI DORADO ── */
+function launchConfetti(){
+  var colors=['#C9A96E','#E2CA96','#F5EDD8','#D9C9A8','#ffffff','#f0d080','#e8b84b','#d4a847','#ffd700'];
+  var shapes=['square','circle','rect','diamond'];
+  var isMobile=window.innerWidth<768;
+  var total=isMobile ? 100 : 350;
+  var spread=isMobile ? 1500 : 4000;
+
+  function spawnPiece(delay){
+    setTimeout(function(){
+      var el=document.createElement('div');
+      el.className='confetti-piece';
+      var shape=shapes[Math.floor(Math.random()*shapes.length)];
+      var size=Math.random()*10+5;
+      var color=colors[Math.floor(Math.random()*colors.length)];
+      var startX=Math.random()*window.innerWidth;
+      var speedX=(Math.random()-0.5)*3;
+      var speedY=Math.random()*4+3;
+      var rot=Math.random()*360;
+      var rotSpeed=(Math.random()-0.5)*8;
+      var wobble=isMobile?1:3;
+
+      el.style.cssText='position:fixed;z-index:9999;pointer-events:none;left:'+startX+'px;top:-20px;';
+      el.style.background=color;
+      if(shape==='square'){el.style.width=size+'px';el.style.height=size+'px';el.style.borderRadius='2px';}
+      else if(shape==='circle'){el.style.width=size+'px';el.style.height=size+'px';el.style.borderRadius='50%';}
+      else if(shape==='rect'){el.style.width=(size*2.2)+'px';el.style.height=(size*.4)+'px';el.style.borderRadius='2px';}
+      else{el.style.width=size+'px';el.style.height=size+'px';el.style.borderRadius='2px';}
+      document.body.appendChild(el);
+
+      var y=-20,x=startX,alpha=1,t=0;
+      function animate(){
+        t++;
+        y+=speedY;
+        x+=speedX+Math.sin(t*0.05)*wobble;
+        rot+=rotSpeed;
+        if(y>window.innerHeight*0.8) alpha-=isMobile?0.07:0.04;
+        el.style.top=y+'px';
+        el.style.left=x+'px';
+        el.style.transform='rotate('+rot+'deg)';
+        el.style.opacity=Math.max(0,alpha);
+        if(y<window.innerHeight+30&&alpha>0){
+          requestAnimationFrame(animate);
+        } else {
+          el.remove();
+        }
+      }
+      requestAnimationFrame(animate);
+    },delay);
+  }
+
+  for(var i=0;i<total;i++){
+    spawnPiece(Math.random()*spread);
+  }
+}
+
+/* ── ENTRADA ── */
+var entered=false;
+function enterSite(withMusic){
+  if(entered)return;
+  entered=true;
+  document.getElementById('entry-btns').style.display='none';
+  document.getElementById('entry-phrase').classList.add('visible');
+  document.getElementById('hero-btns').style.display='none';
+  document.getElementById('hero-phrase').classList.add('visible');
+  setTimeout(function(){
+    document.getElementById('entry-screen').classList.add('hidden');
+  },2200);
+  if(withMusic){
+    var a=document.getElementById('bg-music');
+    a.volume=0.22;
+    a.play().catch(function(){});
+  }
+}
+
+/* ── NAV TOGGLE MOBILE ── */
+var toggle=document.getElementById('nav-toggle');
+var navLinks=document.getElementById('nav-links');
+toggle.addEventListener('click',function(){
+  var open=navLinks.classList.toggle('open');
+  toggle.setAttribute('aria-expanded',open);
+});
+document.querySelectorAll('.nav-links a').forEach(function(a){
+  a.addEventListener('click',function(){
+    navLinks.classList.remove('open');
+    toggle.setAttribute('aria-expanded','false');
+  });
+});
+
+/* ── COUNTDOWN (31 oct 2026 21:30 ARG UTC-3) ── */
+(function(){
+  var target=new Date('2026-10-31T21:30:00-03:00');
+  function pad(n){return String(n).padStart(2,'0')}
+  function update(){
+    var diff=target-new Date();
+    if(diff<=0){
+      ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(function(id){
+        document.getElementById(id).textContent='00';
+      });
+      return;
+    }
+    document.getElementById('cd-days').textContent=pad(Math.floor(diff/86400000));
+    document.getElementById('cd-hours').textContent=pad(Math.floor((diff%86400000)/3600000));
+    document.getElementById('cd-mins').textContent=pad(Math.floor((diff%3600000)/60000));
+    document.getElementById('cd-secs').textContent=pad(Math.floor((diff%60000)/1000));
+  }
+  update();setInterval(update,1000);
+})();
+
+/* ── ASISTENCIA: PILL BUTTONS ── */
+function selectAttend(val){
+  document.getElementById('r-asistencia').value=val;
+  document.getElementById('btn-si').className='btn-attend'+(val==='si'?' selected-yes':'');
+  document.getElementById('btn-no').className='btn-attend'+(val==='no'?' selected-no':'');
+  var showExtras=(val==='si');
+  document.getElementById('food-reqs').classList.toggle('visible',showExtras);
+  document.getElementById('song-field').classList.toggle('visible',showExtras);
+}
+
+/* ── CHIPS TOGGLE ── */
+function toggleChip(cb){
+  cb.parentElement.classList.toggle('checked',cb.checked);
+}
+
+/* ── FORM SUBMIT + GOOGLE SHEETS + CONFETI ── */
+var SHEET_URL='https://script.google.com/macros/s/AKfycbxEZOFTq_Lk7kI7F8PbgWqLm2By9vQ3Enynuq-lTbczJI0cY22C8bWXCus-GY4GMsi20A/exec';
+
+document.getElementById('rsvp-form').addEventListener('submit',function(e){
+  e.preventDefault();
+  var nombre=document.getElementById('r-nombre').value.trim();
+  var apellido=document.getElementById('r-apellido').value.trim();
+  var asistencia=document.getElementById('r-asistencia').value;
+
+  if(!nombre||!asistencia){
+    alert('Por favor completá tu nombre y si vas a asistir.');
+    return;
+  }
+
+  var submitBtn=this.querySelector('.btn-submit');
+  submitBtn.textContent='Enviando...';
+  submitBtn.disabled=true;
+
+  var payload={
+    nombre: nombre,
+    apellido: apellido,
+    asistencia: asistencia,
+    celiaco: document.querySelector('input[name="celiaco"]').checked ? 'Sí' : '',
+    vegetariano: document.querySelector('input[name="vegetariano"]').checked ? 'Sí' : '',
+    vegano: document.querySelector('input[name="vegano"]').checked ? 'Sí' : '',
+    lactosa: document.querySelector('input[name="lactosa"]').checked ? 'Sí' : '',
+    diabetico: document.querySelector('input[name="diabetico"]').checked ? 'Sí' : '',
+    alergia: document.querySelector('input[name="alergia"]').checked ? 'Sí' : '',
+    extra: document.getElementById('r-extra').value.trim(),
+    cancion: document.getElementById('r-cancion').value.trim()
+  };
+
+  fetch(SHEET_URL, {
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(payload)
+  })
+  .then(function(){
+    document.getElementById('rsvp-form').style.display='none';
+    var successEl=document.getElementById('rsvp-success');
+    if(asistencia==='si'){
+      document.getElementById('rsvp-success-text').textContent='¡Gracias! Tu confirmación fue registrada.';
+      document.getElementById('rsvp-success-sub').textContent='Sofía y su familia te esperan con muchísimo amor. 🎉';
+    } else {
+      document.getElementById('rsvp-success-icon') && (document.querySelector('#rsvp-success .form-success-icon').textContent='♡');
+      document.getElementById('rsvp-success-text').textContent='¡Gracias por avisarnos!';
+      document.getElementById('rsvp-success-sub').textContent='Lamentamos que no puedas acompañarnos, pero te mandamos todo el cariño del mundo. 💛';
+    }
+    successEl.classList.add('visible');
+    setTimeout(function(){
+      successEl.scrollIntoView({behavior:'smooth',block:'center'});
+    },100);
+    if(asistencia==='si') launchConfetti();
+  })
+  .catch(function(){
+    document.getElementById('rsvp-form').style.display='none';
+    var successEl=document.getElementById('rsvp-success');
+    if(asistencia==='si'){
+      document.getElementById('rsvp-success-text').textContent='¡Gracias! Tu confirmación fue registrada.';
+      document.getElementById('rsvp-success-sub').textContent='Sofía y su familia te esperan con muchísimo amor. 🎉';
+    } else {
+      document.querySelector('#rsvp-success .form-success-icon').textContent='♡';
+      document.getElementById('rsvp-success-text').textContent='¡Gracias por avisarnos!';
+      document.getElementById('rsvp-success-sub').textContent='Lamentamos que no puedas acompañarnos, pero te mandamos todo el cariño del mundo. 💛';
+    }
+    successEl.classList.add('visible');
+    setTimeout(function(){
+      successEl.scrollIntoView({behavior:'smooth',block:'center'});
+    },100);
+    if(asistencia==='si') launchConfetti();
+  });
+});
+
+/* ── RESET FORMULARIO ── */
+function resetForm(){
+  /* Limpiar campos de texto */
+  document.getElementById('r-nombre').value='';
+  document.getElementById('r-apellido').value='';
+  document.getElementById('r-extra').value='';
+  document.getElementById('r-cancion').value='';
+
+  /* Resetear asistencia */
+  document.getElementById('r-asistencia').value='';
+  document.getElementById('btn-si').className='btn-attend';
+  document.getElementById('btn-no').className='btn-attend';
+
+  /* Ocultar secciones condicionales */
+  document.getElementById('food-reqs').classList.remove('visible');
+  document.getElementById('song-field').classList.remove('visible');
+
+  /* Desmarcar todos los chips */
+  document.querySelectorAll('.chip-label input[type="checkbox"]').forEach(function(cb){
+    cb.checked=false;
+    cb.parentElement.classList.remove('checked');
+  });
+
+  /* Restaurar botón submit */
+  var btn=document.querySelector('.btn-submit');
+  btn.textContent='Confirmar asistencia ✦';
+  btn.disabled=false;
+
+  /* Mostrar form, ocultar éxito */
+  document.getElementById('rsvp-success').classList.remove('visible');
+  document.getElementById('rsvp-form').style.display='';
+
+  /* Scroll al formulario */
+  document.getElementById('rsvp-form').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+/* ── REGALO: TOGGLE DATOS ── */
+function toggleDatos(){
+  var datos=document.getElementById('regalo-datos');
+  var btn=document.getElementById('btn-ver-datos');
+  datos.style.display='block';
+  datos.style.animation='fadeIn .5s ease both';
+  btn.classList.add('hidden');
+}
+
+/* ── COPIAR ALIAS ── */
+function copyAlias(){
+  var alias=document.getElementById('alias-val').textContent;
+  var btn=document.getElementById('btn-alias');
+  function flash(){
+    btn.textContent='✓ Copiado!';btn.classList.add('copied');
+    setTimeout(function(){btn.textContent='Copiar alias';btn.classList.remove('copied');},2200);
+  }
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(alias).then(flash).catch(function(){fallback(alias,flash)});
+  } else {fallback(alias,flash)}
+}
+
+/* ── COPIAR CVU ── */
+function copyCVU(){
+  var cvu=document.getElementById('cvu-val').textContent;
+  var btn=document.getElementById('btn-cvu');
+  function flash(){
+    btn.textContent='✓ Copiado!';btn.classList.add('copied');
+    setTimeout(function(){btn.textContent='Copiar CVU';btn.classList.remove('copied');},2200);
+  }
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(cvu).then(flash).catch(function(){fallback(cvu,flash)});
+  } else {fallback(cvu,flash)}
+}
+
+function fallback(text,cb){
+  var ta=document.createElement('textarea');
+  ta.value=text;ta.style.cssText='position:fixed;opacity:0';
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');cb();}catch(e){}
+  document.body.removeChild(ta);
+}
+</script>
+</body>
+</html>
